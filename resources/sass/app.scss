@@ -1,18 +1,8 @@
 // Fonts
-//@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
 @import 'variables';
-$fa-font-path: "../webfonts";
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-@import '~admin-lte/dist/css/adminlte.css';
-
-
-//custom css
-
-.router-link-exact-active{
-	background-color: #007bff;
-	color: #fff !important;
-}

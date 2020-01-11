@@ -116,9 +116,6 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
-    'name' => 'The :attribute must be only letters.',
-    'gender' => 'The :attribute must be Male or Female',
-    'mobile_number' => 'The :attribute format is invalid.',
 
     /*
     |--------------------------------------------------------------------------

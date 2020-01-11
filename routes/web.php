@@ -1,41 +1,49 @@
 <?php
 
-//YoippspCompany Admin
-Route::group(['domain' => 'admin.yoippsp.com'], __DIR__.'/yoippspCompany/Admin/routes.php');
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
 
-//OuterWebsite
-Route::group(['domain'=>'yoippsp.com'], __DIR__.'/outerWebsite/routes.php');
-
-//OuterWebsite text for mobile
-// Route::group(['middleware' => 'guest', 'domain'=>'192.168.43.98'], __DIR__.'/outerWebsite/routes.php');
-
-//Authentication/ Registration for users
-Route::group(['middleware' => 'guest', 'domain' => 'account.yoippsp.com'], __DIR__.'/auth/routes.php');
-
-/* Route::group(['middleware' => 'guest', 'domain' => '192.168.43.98'], __DIR__.'/auth/routes.php');
-
- */
-Route::get('/login', function(){
-    return redirect( 'http://account.yoippsp.com/'.'login');
+Route::get('/', function () {
+    return view('auth.login');
 });
 
-Route::get('/{any}-register', function($type){
-    return redirect('http://account.yoippsp.com/'.$type.'-register');
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
 });
+Route::view('sample','sample')->middleware('auth');
+//Route::get('sample','sidebar@show');
+Route::view('tansacton','teller.transaction');
+Route::view('deposite','teller.deposite.deposite')->middleware('auth');
+Route::post('deposite','deposite@show');
+Route::view('deposite/check-account','teller/deposite/checkForAccount');
+Route::view('transfer','teller.transfer');
+Route::post('depositeMoney','deposite@store');
 
-//For account users
-Route::group([ 'middleware' => 'auth', 'domain' => 'account.yoippsp.com' ], __DIR__.'/innerWebsite/routes.php');
+///withdrawal
+Route::view('withdrawal','teller.withdrawal.withdrawal')->middleware('auth');
+Route::get('withdrawal.check-account','withdrawal@show');
+Route::post('withdrawal','withdrawal@list');
+Route::post('withdrawalMoney','withdrawal@update');
 
-/* //For account users
-Route::group([ 'middleware' => 'auth', 'domain' => '192.168.43.98' ], __DIR__.'/innerWebsite/routes.php'); */
-
-//for testing error page
-Route::group(['middleware' => 'guest'], __DIR__.'/errors/routes.php');
-
+//transaction
+Route::view('transaction','teller.transaction.transaction')->middleware('auth');
+Route::view('transactions/show','teller.transaction.showResult')->middleware('auth');
+Route::post('transactions','transactionController@check');
 Auth::routes();
 
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+///transfer
+Route::view('transfer','teller.transfer.transfer');
+Route::post('transfer','transferController@check');
+Route::patch('checktransfer','transferController@update');
 
-Route::group(['domain' => 'gateway.yoippsp.com' ], __DIR__.'/innerWebsite/gateway/routes.php');
-
-/* Route::group(['domain' => '192.168.43.98' ], __DIR__.'/innerWebsite/gateway/routes.php'); */
+Route::view('sample-login','login');
+Route::get('/home', 'HomeController@index')->name('home');

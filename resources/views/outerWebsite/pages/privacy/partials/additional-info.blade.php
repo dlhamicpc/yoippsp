@@ -1,3 +1,0 @@
-<h3><a id="14" name="14" pa-marked="1"></a>14. Additional Information</h3> <p>The information provided in this section may be specific to customers depending on your region or is provided to PayPal from third parties whom you may interact with when using the Services. You can contact us if you have any questions about the details in this section.</p> <p><strong>Google ReCaptcha </strong></p> <p>PayPal uses ReCaptcha on the Sites and Services. Your use of ReCaptcha is subject to the Google&nbsp;<a href="https://www.google.com/intl/en/policies/privacy/" pa-marked="1">Privacy Policy</a>&nbsp;and&nbsp;<a href="https://www.google.com/intl/en/policies/terms/" pa-marked="1">Terms of Use</a>.</p> <p>ReCaptcha is only used to fight spam and abuse.</p>	
-
-

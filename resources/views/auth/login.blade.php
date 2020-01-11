@@ -1,216 +1,107 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html>
+
+<!-- Mirrored from adminlte.io/themes/dev/AdminLTE/pages/examples/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Aug 2019 18:40:57 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Log in</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="{{asset('code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.html')}}">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="{{asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
 
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+  <script src="{{ asset('js/app.js') }}" defer></script>
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="../../index2.html"><b>Yoip</b> Bank</a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Sign in to start your session</p>
 
-    <meta name="description" content="@appName Login">
-    <meta name="author" content="dlham">
-    <link rel="icon" href="{{ asset('/images/logo.png') }}">
+      <form action="{{ route('login') }}" method="POST">
+        @csrf
+        <div class="input-group mb-3">
 
-    <title>@appName Login</title>
+          <input type="email" id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-    <link rel="stylesheet" href="{{ asset('/vendor/bootstrap/css/bootstrap.min.css') }}" >
-	<link rel="stylesheet" href="{{ asset('/css/login.css') }}">
-
-  </head>
-
-  <body>
-    <div class="container card-border-color card-border-color-primary" id="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav" style="float: right;">
-            <li class="" >
-              <span class="btn btn-primary login" onclick="showR();">Sign up</span>
-            </li>
-          </ul>
-          <ul class="nav" style="float: left;">
-            <li class="" >
-              <a href="http://yoippsp.com" class="btn btn-primary login" >@appName</a>
-            </li>
-          </ul>
-
-        </nav>
-
-      </div>
-
-      <div class="">
-
-        <form action="{{ route('login') }}" method="POST" class="form-signin" onsubmit="show_loading()">
-
-          <div class="form-group">
-			
-            <p class="" style="">
-				<center>
-					<img 
-                    src="{{ asset('/images/logo.png') }}" 
-                    height="100"
-                    alt="@appName"
-                    width="100"
-                    ><br>
-				</center>
-			</p>
-          </div>
-
-          
-			<div class="row">
-				<div class="form-group col-md-12">
-					<label for="email_mobile" class="sr-only">
-                    {{ __('E-Mail Address or Mobile phone number') }}
-                    </label>
-					
-					<input type="text"
-						   id="email_mobile"
-						   class="form-control @error('email_mobile') is-invalid @enderror"
-						   name="email_mobile"
-						   value="{{ old('email_mobile') }}"
-						   placeholder="Email or Mobile"
-						   required
-                           autocomplete="email_mobile"
-                           autofocus
-                           oninput="this.className = 'form-control'">
-					
-					<label for="password" class="sr-only">
-                    {{ __('Password') }}
-                    </label>
-					
-					<input type="password"
-						   id="password"
-						   class="form-control 
-                            @error('password') 
-                            is-invalid 
-                            @enderror
-                            @error('email_mobile')
-                            @if(
-                              $message == 'These credentials do not match our records.'
-                            ||
-                              strstr($message, 'Too many')
-                            )
-                            is-invalid
-                            @endif
-                            @enderror
-                            "
-						   name="password"
-						   placeholder="Password"
-                           value="{{ old('password') }}"
-						   autocomplete="current-password"
-                           oninput="this.className = 'form-control'">
-				
-                @error('email_mobile')
-                  
-                    <span class="invalid-feedback text-center" role="alert">
-                    <strong id="message">{{ $message }}</strong>
-                    </span>
-
-                    @if( strstr($message, 'Too many') )
-
-                      <script>
-                        let seconds = {{ $errors->all()[1] }};
-                        let message = document.getElementById('message');
-                        let message_without_seconds = 'Too many login attempts. Please try again in ';
-
-                        setInterval(() => {
-                          seconds--;
-                          if( seconds <= 0 ){
-                            document.getElementById('email_mobile').className = 'form-control';
-                            document.getElementById('password').className = 'form-control';
-                            message.innerHTML = '';
-                            return 0;
-                          }
-                          message.innerHTML = message_without_seconds + seconds + ' seconds.';
-                        }, 1000);
-                      </script>
-
-                    @endif
-                @enderror
-
-                @error('password')
-                <span class="invalid-feedback  text-center" role="alert">
-                    <strong>The password field is required.</strong>
+              @error('email')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
                 </span>
-                @enderror
-                </div>
+              @enderror
 
-                
+          <div class="input-group-append">
+            
+          </div>
+        </div>
 
-                <div class="form-group row col-md-12" style="padding: 0px;margin-left:1px;">
-                    <div class="col-5">
-                      <div class="custom-control custom-checkbox">
-                      <input class="custom-control-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                        <label class="custom-control-label" for="remember">{{ __('Remember') }}</label>
-                      </div>
-                    </div>
-                    <div class="col-7 login-forgot-password"
-							style="">
-                            @if (Route::has('password.request'))
-						<a href="{{ route('password.request') }}" >
-						{{ __('Forgot Your Password?') }}</a>
-                        @endif
+        <div class="input-group mb-3">
+          <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" id="password">
+          @error('password')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+          @enderror
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
+              <label class="form-check-label" for="remember">
+                {{ __('Remember Me') }}
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block btn-flat">{{ __('Login') }}</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
 
-					</div>
-            			
-				</div>
-				<div class="col-md-12">
-					<button type="submit"
-              class="btn btn-primary btn-block">
-              <span style="display:none" id="loading1">
-                <img src="{{ asset('/images/collection/ajax_loader.gif') }}" >
-              </span>
-                          {{ __('Login') }}
-              <span style="display:none" id="loading2">
-                <img src="{{ asset('/images/collection/ajax_loader.gif') }}" >
-              </span>
-          </button>
-				</div>
-			</div>
+      
+      <!-- /.social-auth-links -->
 
-            @honeyPot
-            @csrf
-        </form>
+      <p class="mb-1">
+       @if (Route::has('password.request'))
+          <a class="btn btn-link" href="{{ route('password.request') }}">
+            {{ __('Forgot Your Password?') }}
+          </a>
+        @endif
+      </p>
+      
     </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+<!-- /.login-box -->
 
-  @include('auth.partials.footer')
+<!-- jQuery -->
+<script src="{{('plugins/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+</body>
 
-			</div>
-		</div><!-- /container -->
-		
-		
-		<div id="regChoice" class="modal" style="display: none;" >
-			<div class="modal-content">
-				<center>
-					<div class="close">
-						<span onclick="closeR();">&times;</span>
-					</div>
-			  </center>
-				<div class="">
-					<a class="btn btn-primary form-control" href="{{ url('/').'/pa-register' }}">Personal</a>
-				</div><br>
-				<div class="">
-					<a class="btn btn-primary  form-control" href="{{ url('/').'/ba-register' }}">Company</a>
-				</div><br>
-				<div class="">
-					<a class="btn btn-primary  form-control" href="{{ url('/').'/wa-register' }}">Website</a>
-				</div><br>
-				<div class="">
-					<a class="btn btn-primary form-control" href="{{ url('/').'/bpa-register' }}">Bill Payment</a>
-				</div><br>
-                <div class="">
-					<a class="btn btn-primary  form-control" href="{{ url('/').'/spa-register' }}">Service Provider</a>
-				</div><br>
-			</div>
-		</div>	
-		
-    <script src="{{ asset('/js/login.js') }}"></script>
-    <script>
-      function show_loading() {
-        document.getElementById('loading1').style.display = 'inline';
-        document.getElementById('loading2').style.display = 'inline'; 
-      }
-    </script>
-		
-  </body>
+<!-- Mirrored from adminlte.io/themes/dev/AdminLTE/pages/examples/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Aug 2019 18:40:57 GMT -->
 </html>

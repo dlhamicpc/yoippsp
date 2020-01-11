@@ -63,83 +63,6 @@ return [
             ]) : [],
         ],
 
-        /**
-         * External Database Link for banks
-         */
-
-        'external_database_bank_cbe' => [
-            'driver'    => 'mysql',
-            'host'      => 'localhost',
-            'database'  => 'dlhambank_db',
-            'username'  => 'root',
-            'password'  => 'secret',
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
-            'strict'    => false,
-        ],
-
-        /*********************||| *********************/
-
-        /**
-         * 
-         * External Database Link for Bill Payment Providers
-         * 
-         */
-
-        /**
-         * Links for Electricity Providers 
-         */
-        'external_database_bill_payment_provider_addis_elec' => [
-            'driver'    => 'mysql',
-            'host'      => 'localhost',
-            'database'  => 'test_electricity',
-            'username'  => 'root',
-            'password'  => 'secret',
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
-            'strict'    => false,
-        ],
-
-        /*********************-------*********************/
-
-        /**
-         * Links for Water Providers 
-         */
-        'external_database_bill_payment_provider_oromia_water' => [
-            'driver'    => 'mysql',
-            'host'      => 'localhost',
-            'database'  => 'test_electricity',
-            'username'  => 'root',
-            'password'  => 'secret',
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
-            'strict'    => false,
-        ],
-
-        /*********************-------*********************/
-
-        /**
-         * Links for Dstv Providers 
-         */
-        'external_database_bill_payment_provider_addis_dstv' => [
-            'driver'    => 'mysql',
-            'host'      => 'localhost',
-            'database'  => 'dlhambank_db',
-            'username'  => 'root',
-            'password'  => 'secret',
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
-            'strict'    => false,
-        ],
-
-        /*********************-------*********************/
-
-        /************************* ||| ********************/
-
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
@@ -200,10 +123,11 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'predis'),
-            'prefix' => Str::slug(env('APP_NAME', 'laravel'), '_').'_database_',
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
         ],
 
         'default' => [
+            'url' => env('REDIS_URL'),
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'password' => env('REDIS_PASSWORD', null),
             'port' => env('REDIS_PORT', 6379),
@@ -211,6 +135,7 @@ return [
         ],
 
         'cache' => [
+            'url' => env('REDIS_URL'),
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'password' => env('REDIS_PASSWORD', null),
             'port' => env('REDIS_PORT', 6379),

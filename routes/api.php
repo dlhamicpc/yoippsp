@@ -16,7 +16,3 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-//For checking if something exists in the database
-Route::group(['prefix' => 'exists'], __DIR__.'/exists/routes.php');
-
