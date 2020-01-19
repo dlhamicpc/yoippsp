@@ -270,8 +270,7 @@ export default {
             else{
               
               $('#withdraw-money').modal('hide');
-              this.form_withdraw_money.withdraw_amount = "";
-              this.form_withdraw_money.payment_method_withdraw = "";
+              
               //$('#withdraw_amount').val("");
               //$('#payment_method_withdraw').val("");
 
@@ -285,6 +284,9 @@ export default {
                 text:"You have successfully withdrawed " + this.form_withdraw_money.withdraw_amount + " birr to your Yoippsp wallet.\nYour current Yoippsp wallet balance is " + data.balance + " birr." ,
                 type:'success'
               });
+
+              this.form_withdraw_money.withdraw_amount = "";
+              this.form_withdraw_money.payment_method_withdraw = "";
 
             ECHO.$emit('END_LOADING'); 
             }

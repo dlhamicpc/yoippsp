@@ -233,9 +233,22 @@
                     })
                     .catch((error)=>{
                         //ALERT ERROR HAPPENED
-                        console.log('ALERT ERROR HAPPENED C2');
-                        this.show_error_to_update_modal();
                         ECHO.$emit('END_LOADING');
+                        if( error.message.search(403) != -1) {
+                          //user deleted
+                          swal.fire({
+                              title: 'Come visit us again',
+                              type: 'info',
+                              confirmButtonColor: '#3085d6',
+                              confirmButtonText: 'Good Bye',
+                          }).then((result) => {
+                            window.location.assign('http://account.yoippsp.com/login');
+                          });
+                        }
+                        else{
+                          this.show_error_to_update_modal();
+                        }
+                          
                     });
 
             }

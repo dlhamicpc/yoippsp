@@ -64,8 +64,15 @@ class RequestMoneyTransactionController extends TransactionController
             'description' => ['bail', 'sometimes'],
         ]);
 
+        
+
         $this->receiverAddress = $request->receiver_address_request;
-        $this->receiverUser = $this->find_receiver( );
+        $this->receiverUser = $this->find_receiver();
+
+        if( $this->receiverUser == null ) {
+            abort(404);
+        }
+
         $this->receiverUserID = $this->receiverUser->id;
         $this->receiverRoleID = $this->receiverUser->role_id;
         $this->requestingAmount = $request->requesting_amount;
@@ -123,21 +130,6 @@ class RequestMoneyTransactionController extends TransactionController
         return $message; 
     } 
 
-    private function find_model( $role_id )
-    {
-
-        switch ($role_id) {
-
-            case 5:{
-                return new PersonalUser();
-            };
-
-            default:
-                # code...
-                break;
-        }
-
-    }
 
     private function find_receiver_from_its_model( $model , $searchBy, $key )
     {

@@ -4,7 +4,7 @@
   function closeSideBar( singlePageOrNot ){
 
     if( singlePageOrNot !== null ){
-      if( singlePageOrNot ){
+      if( singlePageOrNot === true ){
         $('#not_single_page').css('display' , 'block');
       }
       else{
@@ -61,13 +61,53 @@
             </router-link>
           </li>
 
-          <li class="nav-item">
+
+          <li class="nav-item has-treeview">
+            <a href="" class="nav-link" id="left-sidebar-send-request">
+              <i class="far fa-bookmark nav-icon text-red"></i>
+              <p>
+              API Configuration
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+
+            <li class="nav-item">
               <router-link to="" class="nav-link"  data-target="#api-key"  data-toggle="modal"
-              onclick="closeSideBar(false);">
-                <i class="far fa-bookmark nav-icon text-red"></i>
-                <p>API Configuration</p>
+              onclick="closeSideBar(null);">
+                <i class="far fa-address-book nav-icon text-green"></i>
+                <p>API Key/Webhook</p>
               </router-link>
+            </li>
+
+            <li class="nav-item">
+              <router-link to="/wa/api_documentation" class="nav-link" 
+              onclick="closeSideBar(false);" id="documentation">
+                <i class="nav-icon fas fa-tachometer-alt white text-orange"></i>
+                <p>
+                  API Documentation
+                </p>
+              </router-link>
+            </li>
+
+
+
+            </ul>
           </li>
+
+          <li class="nav-item">
+                <a href="{{ url('/wa/customer_list') }}" class="nav-link" onclick="closeSideBar(true);">
+                  <i class="fa fa-users nav-icon"></i>
+                  <p>Customer List</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{ url('/wa/payment_detail') }}" class="nav-link" onclick="closeSideBar(true);">
+                  <i class="fa fa-money-bill nav-icon"></i>
+                  <p>Pending / Failed Payment</p>
+                </a>
+              </li>
 
           
           <li class="nav-item">
@@ -94,14 +134,14 @@
 
               <li class="nav-item">
                 <router-link to="" class="nav-link" 
-                onclick="closeSideBar(false);check_balance('#send-money')">
+                onclick="closeSideBar(null);check_balance('#send-money')">
                   <i class="far fa-arrow-alt-circle-right nav-icon"></i>
                   <p>Refund</p>
                 </router-link>
               </li>
 
               <li class="nav-item">
-                <router-link to="" class="nav-link" data-target="#request-money"  data-toggle="modal" onclick="closeSideBar(false);">
+                <router-link to="" class="nav-link" data-target="#request-money"  data-toggle="modal" onclick="closeSideBar(null);">
                   <i class="far fa-arrow-alt-circle-left nav-icon"></i>
                   <p>Request Money</p>
                 </router-link>
@@ -124,14 +164,14 @@
             <ul class="nav nav-treeview">
 
               <li class="nav-item">
-                <router-link to="" class="nav-link" onclick="closeSideBar(false);check_link_card_or_bank('#deposit-money')">
+                <router-link to="" class="nav-link" onclick="closeSideBar(null);check_link_card_or_bank('#deposit-money')">
                   <i class="fa fa-arrow-right nav-icon"></i>
                   <p>Deposit Money</p>
                 </router-link>
               </li>
 
               <li class="nav-item">
-                <router-link to="" class="nav-link" onclick="closeSideBar(false);check_link_card_or_bank('#withdraw-money')">
+                <router-link to="" class="nav-link" onclick="closeSideBar(null);check_link_card_or_bank('#withdraw-money')">
                   <i class="fa fa-arrow-left nav-icon"></i>
                   <p>Withdraw Money</p>
                 </router-link>
@@ -151,7 +191,7 @@
           <li class="nav-item">
                 <router-link to="" class="nav-link" 
                             data-target="#balance-wallet"  data-toggle="modal" 
-                            onclick="closeSideBar(false);">
+                            onclick="closeSideBar(null);">
                   <i class="fa fa-wallet nav-icon text-orange"></i>
                   <p>Balance</p>
                 </router-link>
@@ -203,7 +243,7 @@
           </li>
 
           <li class="nav-item">
-                <a href="{{ url('http://yoippsp.com/help') }}" class="nav-link" onclick="closeSideBar(false);">
+                <a href="{{ url('http://yoippsp.com/help') }}" target="_blank" class="nav-link" onclick="closeSideBar(null);">
                   <i class="fa fa-question nav-icon"></i>
                   <p>Help</p>
                 </a>
@@ -214,7 +254,7 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}" 
                 onclick="event.preventDefault();
-                document.getElementById('logout-form-left-sidebar').submit();closeSideBar(false);">
+                document.getElementById('logout-form-left-sidebar').submit();closeSideBar(null);">
                 <i class="nav-icon fa fa-power-off red"></i>
                 <p>
                   {{ __('Logout') }}

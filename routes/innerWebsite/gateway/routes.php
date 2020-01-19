@@ -1,11 +1,15 @@
 <?php
 
-$url = 'API\InnerWebsite\Transaction\WebsitePaymentTransactionTemporaryController';
+$url_temp = 'API\InnerWebsite\Transaction\WebsitePaymentTransactionTemporaryController';
 
-Route::get('/pay/{payer_identification}', $url.'@index');
+$url_real = 'API\InnerWebsite\Transaction\WebsitePaymentTransactionController';
 
-Route::post('/store_payment_data', $url.'@store_payment_data');
+$url_check_credential = 'API\InnerWebsite\Gateway\WebsitePaymentCredentialCheckController';
 
-Route::post('/get_payment_data', $url.'@get_payment_data');
+Route::post('/store_payment_data', $url_temp.'@store_payment_data');
 
-Route::post('/pay', 'API\InnerWebsite\Transaction\WebsitePaymentTransactionController@store')->name('pay');
+Route::get('/pay/{payer_identification}', $url_real.'@index');
+
+Route::post('/get_payment_data/{payer_identification}', $url_real.'@get_payment_data');
+
+Route::post('/pay', $url_check_credential.'@login')->name('pay');

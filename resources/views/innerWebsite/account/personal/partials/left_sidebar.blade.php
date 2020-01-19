@@ -147,7 +147,7 @@
                 Billpayments
                 <i class="right fas fa-angle-left" ></i>
                 <span class="right badge badge-danger"  v-if="showBillPaymentNotification.show">New
-                <span class="right badge badge-warning">@{{ showBillPaymentNotification.length }}</span>
+                <span class="right badge badge-warning" id="bill_payment_side_bar">@{{ showBillPaymentNotification.length }}</span>
                 </span>
               </p>
             </a>

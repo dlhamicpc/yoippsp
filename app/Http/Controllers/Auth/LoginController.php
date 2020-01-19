@@ -76,7 +76,7 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
 
-        if ( \Auth::attempt($request->only($login_type, 'password'))) {
+        if ( \Auth::attempt( $request->only($login_type, 'password'), $request->filled('remember') ) ) {
             return redirect()->intended($this->redirectPath());
         }
         $this->incrementLoginAttempts($request);
@@ -107,6 +107,8 @@ class LoginController extends Controller
                 return 'http://account.yoippsp.com/bpa/dashboard';
             case 7:
                 return 'http://account.yoippsp.com/spa/dashboard';
+            case 8:
+                return 'http://admin.yoippsp.com';
             default:
                 return 'http://yoippsp.com';
         }

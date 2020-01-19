@@ -112,7 +112,9 @@
 
               case 3: return 'Request money';
 
-              default: return 'Bill Payment';
+              case 5: return 'Bill Payment';
+
+              default: return 'Payment';
 
             }
 

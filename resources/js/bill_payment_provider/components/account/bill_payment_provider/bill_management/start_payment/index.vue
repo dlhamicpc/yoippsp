@@ -136,7 +136,7 @@
           return{
             form_start_payment: new Form({
                   date_range_picker: "",
-                  payment_of_month: (new Date()).getMonth(),
+                  payment_of_month: (new Date()).getMonth()+1,
                   payment_of_year: (new Date()).getFullYear(),
             }),
 

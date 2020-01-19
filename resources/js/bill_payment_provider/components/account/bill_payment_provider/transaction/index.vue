@@ -89,6 +89,12 @@
                             <label class="custom-control-label" for="request">Request</label>
                           </div>
 
+                           <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="bill_payment" name="allFilters" class="custom-control-input" v-model="filterBy" value="bill_payment" @change="filterTransactionBy()">
+                            <label class="custom-control-label" for="bill_payment">Bill Payment</label>
+                          </div>
+
+
                         </div>
                         <!-- All Filters collapse End -->
                       </div>
@@ -206,10 +212,11 @@
                  .then(({data}) => (
                     this.transactionsPaginate = data,
                     this.transactionsBeforeFilter = data.data,
-                    temp = this.filterTransactionBy()
+                    temp = this.filterTransactionBy(),
+                    ECHO.$emit('END_LOADING')
                   ));
             
-            ECHO.$emit('END_LOADING');
+            
                                 
           }//END of loadTransaction()
           ,
@@ -223,9 +230,10 @@
                     this.transactionsPaginate = response.data;
                     this.transactionsBeforeFilter = response.data.data;
                     temp = this.filterTransactionBy();
+                    ECHO.$emit('END_LOADING');
                   });
             
-            ECHO.$emit('END_LOADING');
+            
           }//END of pagination()
           ,
 
@@ -317,6 +325,21 @@
                 break;
               }
 
+              case "bill_payment": {
+                let temp = new Object();
+                let temp2 = this.transactionsBeforeFilter;
+
+                for( let index in temp2 ){
+                  let temp3 = temp2[index];
+                  if ( temp3.transaction_type == 5 ){
+                    temp[index] = temp3;
+                  }
+                }
+
+                this.transactionsThis = temp;
+                break;
+              }
+
               default: 
                 this.transactionsThis = this.transactionsBeforeFilter;
 
@@ -368,6 +391,7 @@
               case "withdraw":  return "Withdraw Transactions";
               case "deposit":   return "Deposit Transactions";
               case 'request':   return "Request Transactions";
+              case 'bill_payment':   return "Bill Payment Transactions";
               default:          return "All Transactions";
 
             }

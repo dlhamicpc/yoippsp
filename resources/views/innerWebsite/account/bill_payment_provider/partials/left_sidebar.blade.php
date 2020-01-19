@@ -4,7 +4,7 @@
   function closeSideBar( singlePageOrNot ){
 
     if( singlePageOrNot !== null ){
-      if( singlePageOrNot ){
+      if( singlePageOrNot === true ){
         $('#not_single_page').css('display' , 'block');
       }
       else{
@@ -100,13 +100,6 @@
                 </a>
               </li>
 
-              <!-- <li class="nav-item">
-                <router-link to="" class="nav-link" data-target="#request-money"  data-toggle="modal" onclick="closeSideBar(false);">
-                  <i class="fa fa-cloud-download-alt nav-icon text-red"></i>
-                  <p>Sync Database</p>
-                </router-link>
-              </li> -->
-
             </ul>
           </li>
 
@@ -135,14 +128,14 @@
 
               <li class="nav-item">
                 <router-link to="" class="nav-link" 
-                onclick="closeSideBar(false);check_balance('#send-money')">
+                onclick="closeSideBar(null);check_balance('#send-money')">
                   <i class="far fa-arrow-alt-circle-right nav-icon"></i>
                   <p>Refund</p>
                 </router-link>
               </li>
 
               <li class="nav-item">
-                <router-link to="" class="nav-link" data-target="#request-money"  data-toggle="modal" onclick="closeSideBar(false);">
+                <router-link to="" class="nav-link" data-target="#request-money"  data-toggle="modal" onclick="closeSideBar(null);">
                   <i class="far fa-arrow-alt-circle-left nav-icon"></i>
                   <p>Request Money</p>
                 </router-link>
@@ -165,14 +158,14 @@
             <ul class="nav nav-treeview">
 
               <li class="nav-item">
-                <router-link to="" class="nav-link" onclick="closeSideBar(false);check_link_card_or_bank('#deposit-money')">
+                <router-link to="" class="nav-link" onclick="closeSideBar(null);check_link_card_or_bank('#deposit-money')">
                   <i class="fa fa-arrow-right nav-icon"></i>
                   <p>Deposit Money</p>
                 </router-link>
               </li>
 
               <li class="nav-item">
-                <router-link to="" class="nav-link" onclick="closeSideBar(false);check_link_card_or_bank('#withdraw-money')">
+                <router-link to="" class="nav-link" onclick="closeSideBar(null);check_link_card_or_bank('#withdraw-money')">
                   <i class="fa fa-arrow-left nav-icon"></i>
                   <p>Withdraw Money</p>
                 </router-link>
@@ -192,82 +185,11 @@
           <li class="nav-item">
                 <router-link to="" class="nav-link" 
                             data-target="#balance-wallet"  data-toggle="modal" 
-                            onclick="closeSideBar(false);">
+                            onclick="closeSideBar(null);">
                   <i class="fa fa-wallet nav-icon"></i>
                   <p>Balance</p>
                 </router-link>
           </li>
-
-<!-- 
-          <li class="nav-header">Services</li>
-          <li class="nav-item has-treeview">
-            <a href="" class="nav-link" id="left-sidebar-bill-payments">
-              <i class="nav-icon fas fa-money-bill-wave"></i>
-              <p>
-                Billpayments
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-
-              <li class="nav-item">
-                <router-link to="/card" class="nav-link" onclick="closeSideBar(false);">
-                  <i class="fa fa-water nav-icon"></i>
-                  <p>Water Billpayment</p>
-                </router-link>
-              </li>
-
-              <li class="nav-item">
-                <router-link to="/card" class="nav-link" onclick="closeSideBar(false);">
-                  <i class="fa fa-lightbulb nav-icon"></i>
-                  <p>Electricity Billpayment</p>
-                </router-link>
-              </li>
-
-              <li class="nav-item">
-                <router-link to="/card" class="nav-link" onclick="closeSideBar(false);">
-                  <i class="fa fa-tv nav-icon"></i>
-                  <p>DSTV Billpayment</p>
-                </router-link>
-              </li>
-
-            </ul>
-          </li>
-
-          <li class="nav-item has-treeview">
-            <a href="" class="nav-link" id="left-sidebar-tickets">
-              <i class="nav-icon fas fa-vr-cardboard"></i>
-              <p>
-                Buy Ticket
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-
-              <li class="nav-item">
-                <router-link to="/card" class="nav-link" onclick="closeSideBar(false);">
-                  <i class="fa fa-tv nav-icon"></i>
-                  <p>Cinema Ticket</p>
-                </router-link>
-              </li>
-
-              <li class="nav-item">
-                <router-link to="/card" class="nav-link" onclick="closeSideBar(false);">
-                  <i class="fa fa-plane nav-icon"></i>
-                  <p>Airplane Ticket</p>
-                </router-link>
-              </li>
-
-              <li class="nav-item">
-                <router-link to="/card" class="nav-link" onclick="closeSideBar(false);">
-                  <i class="fa fa-bus nav-icon"></i>
-                  <p>Bus Ticket</p>
-                </router-link>
-              </li>
-
-            </ul>
-          </li> -->
-
 
           <li class="nav-header">Others</li>
 
@@ -298,13 +220,6 @@
                   <p>Cards & Bank Accounts</p>
                 </router-link>
               </li>
-<!-- 
-              <li class="nav-item">
-                <router-link to="/bpa/bill_payment_settings" class="nav-link" onclick="closeSideBar(false);change_active_color(this)" id="left-sidebar-cards">
-                  <i class="far fa-id-card nav-icon"></i>
-                  <p>Bill payments</p>
-                </router-link>
-              </li> -->
 
               <li class="nav-item">
                 <router-link to="/bpa/notification_settings" class="nav-link" onclick="closeSideBar(false);change_active_color(this)" id="left-sidebar-notifications">
@@ -325,7 +240,7 @@
           </li>
 
           <li class="nav-item">
-                <a href="{{ url('http://yoippsp.com/help') }}" class="nav-link" onclick="closeSideBar(false);">
+                <a href="{{ url('http://yoippsp.com/help') }}" target="_blank" class="nav-link" onclick="closeSideBar(null);">
                   <i class="fa fa-question nav-icon"></i>
                   <p>Help</p>
                 </a>
@@ -336,7 +251,7 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}" 
                 onclick="event.preventDefault();
-                document.getElementById('logout-form-left-sidebar').submit();closeSideBar(false);">
+                document.getElementById('logout-form-left-sidebar').submit();closeSideBar(null);">
                 <i class="nav-icon fa fa-power-off red"></i>
                 <p>
                   {{ __('Logout') }}

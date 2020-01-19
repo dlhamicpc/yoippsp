@@ -19,7 +19,7 @@
             </a>
 
             <a href="{{ url('/') }}"  class=" text-white">
-              Pa<span class="" style="color:rgb(0,174,238)">y</span><span class="" style="color:rgb(0,157,78);">E</span>T
+              Yoi<span class="" style="color:rgb(0,174,238)">y</span><span class="" style="color:rgb(0,157,78);">p</span>psp
               </a>
           </div>
           <!-- Logo end --> 

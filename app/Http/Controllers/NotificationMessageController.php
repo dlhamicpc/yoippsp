@@ -96,15 +96,26 @@ class NotificationMessageController extends Controller
             case 1:{
                 return new \App\Models\InnerWebsite\YoippspAdminUser();
             }
+            case 2:{
+                return new \App\Models\InnerWebsite\BankUser();
+            }
+            case 3:{
+                return new \App\Models\InnerWebsite\BusinessUser();
+            }
+            case 4:{
+                return new \App\Models\InnerWebsite\WebsiteUser();
+            }
             case 5:{
                 return new \App\Models\InnerWebsite\PersonalUser();
             }
             case 6:{
                 return new \App\Models\InnerWebsite\BillPaymentUser();
             }
-            default:{
-                abort(422, 'Invalid Request');
+            case 7:{
+                return new \App\Models\InnerWebsite\ServiceProviderUser();
             }
+            default:
+                abort(422, 'Invalid Request Information');
         }
 
     }
@@ -137,7 +148,7 @@ class NotificationMessageController extends Controller
         $notificationBill = array();
         foreach( $notificationMessagesNoPagination as $notification ) {
 
-            if( $notification->type == 2 && auth()->user->role_id == 6 ){
+            if( $notification->type == 2 && auth()->user()->role_id == 6 ){
                 return [];
             }
 

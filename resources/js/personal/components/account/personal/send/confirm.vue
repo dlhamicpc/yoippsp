@@ -151,11 +151,23 @@
 
                     })
                     .catch((error)=>{
-                      //ALERT ERROR HAPPENED
-                      console.log('ALERT ERROR HAPPENED');
-                      console.log(error);
-                      some_thing_went_wrong.fire();
                       ECHO.$emit('END_LOADING');
+                      //ALERT ERROR HAPPENED
+                      if( error.message.search(422) != -1 ){
+                        swal.fire({
+                          title: "Failed",
+                          text: "The receiver account you entered doesn't accept payment!",
+                          showButtonConfirmation: true,
+                          type: 'warning',
+                        });
+                      }
+                      else{
+                        console.log('ALERT ERROR HAPPENED');
+                        console.log(error.message);
+                        some_thing_went_wrong.fire();
+                      }
+                      
+                      
                   });
 
           }
@@ -196,7 +208,7 @@
 
           invalid_receiver_address(){
 
-            StyleError( 'receiver_address', 'receiver_addressError' );
+            StyleErrorIconLeft( 'receiver_address', 'receiver_addressError' );
             ID( 'receiver_addressError' ).innerHTML = 'Invalid receiver address!';
 
           }

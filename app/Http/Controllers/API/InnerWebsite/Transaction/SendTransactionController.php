@@ -213,24 +213,7 @@ class SendTransactionController extends TransactionController
         return $message; 
     } 
 
-    private function find_model( $role_id )
-    {
 
-        switch ($role_id) {
-            case 1:{
-                return new YoippspAdminUser();
-            }
-            case 5:{
-                return new PersonalUser();
-            }
-            case 6:{
-                return new BillPaymentUser();
-            }
-            default:
-                abort(422, 'Invalid Request Information');
-        }
-
-    }
 
     private function find_receiver_from_its_model( $model , $searchBy, $key )
     {

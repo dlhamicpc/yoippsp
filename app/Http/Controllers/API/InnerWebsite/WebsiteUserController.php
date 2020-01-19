@@ -7,6 +7,8 @@ use App\Models\InnerWebsite\UserCardLink;
 use App\Models\InnerWebsite\UserBankLink;
 use App\Models\InnerWebsite\Transaction;
 use App\Models\InnerWebsite\WebsiteUser;
+use App\Models\InnerWebsite\WebsitePaymentTransaction;
+use App\Models\InnerWebsite\WebsitePaymentTransactionTemporary;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -41,76 +43,62 @@ class WebsiteUserController extends Controller
         );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function customer_list()
     {
-        //
+
+        $user = auth()->user();
+        $user_id = $user->id;
+
+        
+        $api = $user->api;
+        $websiteUser = WebsiteUser::where( 'user_id', $user_id )->get()->first();
+        $userCardLinks = UserCardLink::where( 'user_id', $user_id )->get();
+        $userBankLinks = UserBankLink::where( 'user_id', $user_id )->get();
+        $transactions = Transaction::where( 'sender_id' , $user_id )
+                                    ->orWhere( 'receiver_id', $user_id )
+                                    ->limit(10)
+                                    ->latest()
+                                    ->get();
+
+        $customers = WebsitePaymentTransaction::with('user')
+                                ->orderBy('id', 'desc')
+                                ->paginate(10);
+
+        return view(
+            'innerWebsite.account.website.pages.customer_list.index' , 
+            compact( 'websiteUser', 'userCardLinks' , 'userBankLinks' , 'transactions', 'api', 'customers')
+        );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function payment_detail()
     {
-        //
+        $user = auth()->user();
+        $user_id = $user->id;
+
+        
+        $user = auth()->user();
+        $user_id = $user->id;
+
+        
+        $api = $user->api;
+        $websiteUser = WebsiteUser::where( 'user_id', $user_id )->get()->first();
+        $userCardLinks = UserCardLink::where( 'user_id', $user_id )->get();
+        $userBankLinks = UserBankLink::where( 'user_id', $user_id )->get();
+        $transactions = Transaction::where( 'sender_id' , $user_id )
+                                    ->orWhere( 'receiver_id', $user_id )
+                                    ->limit(10)
+                                    ->latest()
+                                    ->get();
+
+        $paymentDetail = WebsitePaymentTransactionTemporary::where('status', '!=', 'Paid')
+                                ->orderBy('id', 'desc')
+                                ->paginate(10);
+
+        return view(
+            'innerWebsite.account.website.pages.payment_detail.index' , 
+            compact( 'websiteUser', 'userCardLinks' , 'userBankLinks' , 'transactions', 'api', 'paymentDetail')
+        );
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\InnerWebsite\WebsiteUser  $websiteUser
-     * @return \Illuminate\Http\Response
-     */
-    public function show(WebsiteUser $websiteUser)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\InnerWebsite\WebsiteUser  $websiteUser
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(WebsiteUser $websiteUser)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\InnerWebsite\WebsiteUser  $websiteUser
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, WebsiteUser $websiteUser)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\InnerWebsite\WebsiteUser  $websiteUser
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(WebsiteUser $websiteUser)
-    {
-        //
-    }
-
-
-
-
-
 
 
 
@@ -129,10 +117,6 @@ class WebsiteUserController extends Controller
     {
         return WebsiteUser::where(['type' => 2])->get();
     }
-
-
-
-
 
 
 
@@ -209,6 +193,8 @@ class WebsiteUserController extends Controller
         $data = $this->validate_update_languages_time_zone( $request );
 
         if( $data['account_status'] == 'delete' ){
+            auth()->user()->delete();
+            auth()->guard()->logout();
             abort(403);
         }
 

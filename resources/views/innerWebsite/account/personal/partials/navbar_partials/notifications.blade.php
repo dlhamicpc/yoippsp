@@ -6,7 +6,8 @@
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           
-          <span class="dropdown-header" v-if="notification.notificationCount">
+          <span class="dropdown-header" v-if="notification.notificationCount" 
+          id="notification_view">
             @{{ notification.notificationCount }} New Notifications
           </span>
 

@@ -26,12 +26,12 @@
         <nav>
           <ul class="nav" style="float: right;">
             <li class="" >
-              <a href="{{ asset('/login') }}" class="btn btn-info login" >Login</a>
+              <a href="{{ url('http://account.yoippsp.com/login') }}" class="btn btn-info login" >Login</a>
             </li>
           </ul>
           <ul class="nav" style="float: left;">
             <li class="" >
-              <a href="{{ asset('/') }}" class="btn btn-info login" >@appName</a>
+              <a href="{{ url('http://yoippsp.com') }}" class="btn btn-info login" >@appName</a>
             </li>
           </ul>
 

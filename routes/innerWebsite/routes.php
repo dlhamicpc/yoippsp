@@ -33,4 +33,10 @@ Route::group(['prefix' => 'bpa', 'middleware' => 'is_bill_payment_provider_user'
 
 Route::group(['prefix' => 'wa', 'middleware' => 'is_website_user'], $dir.'/website/routes.php');
 
+Route::group(['prefix' => 'bank', 'middleware' => 'is_bank_user'], $dir.'/bank/routes.php');
+
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::get('/home', function(){
+    return redirect( 'http://account.yoippsp.com/');
+});

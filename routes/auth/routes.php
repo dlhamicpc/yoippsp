@@ -8,33 +8,38 @@
 
 Auth::routes();
 
+Route::get('/home', function(){
+        return redirect( 'http://account.yoippsp.com/login');
+});
 
 //Personal Account Registration
 //view 
-Route::get('/pa-register', 
-    'Auth\Registration\PersonalRegisterController@showRegistrationForm'
-)->name('pa_register');
+Route::get('/pa-register', 'Auth\Registration\PersonalRegisterController@showRegistrationForm');
     
-Route::post('/pa-register', 'Auth\Registration\PersonalRegisterController@register');
+Route::post('/pa-register', 'Auth\Registration\PersonalRegisterController@register')->name('pa_register');
 
 
 //BillPayment Account Registration
 //view
-Route::get('/bpa-register', 
-        'Auth\Registration\BillPaymentRegisterController@showRegistrationForm'
-)->name('bpa_register');
+Route::get('/bpa-register', 'Auth\Registration\BillPaymentRegisterController@showRegistrationForm');
 
 //register
-Route::post('/bpa-register', 'Auth\Registration\BillPaymentRegisterController@register');
+Route::post('/bpa-register', 'Auth\Registration\BillPaymentRegisterController@register')->name('bpa_register');
 
 
 //Website Account Registration
 //view
-Route::get('/wa-register', 
-        'Auth\Registration\WebsiteRegisterController@showRegistrationForm'
-)->name('wa_register');
+Route::get('/wa-register', 'Auth\Registration\WebsiteRegisterController@showRegistrationForm');
 //register
-Route::post('/wa-register', 'Auth\Registration\WebsiteRegisterController@register');
+Route::post('/wa-register', 'Auth\Registration\WebsiteRegisterController@register')->name('wa_register');
+
+
+
+//Bank Account Registration
+//view
+Route::get('/bank-register/{id}', 'Auth\Registration\BankRegisterController@showRegistrationForm');
+//register
+Route::post('/bank-register', 'Auth\Registration\BankRegisterController@register')->name('bank_register');
 
 
 /* 

@@ -1,6 +1,6 @@
 <template>
   <!-- Transaction List=============================== -->
-            <div class="transaction-list">
+            <div class="transaction-list" id="transaction-list">
 
               <div class="transaction-item px-4 py-3" data-toggle="modal" data-target="#transaction-detail"
                 v-for="transaction in transactionsData" :key="transaction.id" @click="open_transaction_modal(transaction)">
@@ -112,7 +112,11 @@
 
               case 3: return 'Request money';
 
-              default: return 'Bill Payment';
+              case 4: return 'Online Payment';
+
+              case 5: return 'Bill Payment';
+
+              default: return 'Payment';
 
             }
 

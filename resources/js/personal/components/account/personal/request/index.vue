@@ -248,18 +248,32 @@
 
               })
               .catch((error)=>{
-                //ALERT ERROR HAPPENED
-                console.log('ALERT ERROR HAPPENED');
-                console.log(error);
-                some_thing_went_wrong.fire();
-                if ( this.form_request_money.errors.any() ) {
-                  this.show_error_to_request_modal();
-                }
-                else{
-                  some_thing_went_wrong.fire();
-                }
                 
                 ECHO.$emit('END_LOADING');
+
+                if( error.message.search(422) != -1 ){
+                  swal.fire({
+                    title: "Failed",
+                    text: "The receiver account you entered doesn't support payment request!",
+                    showButtonConfirmation: true,
+                    type: 'warning',
+                  });
+                }
+                else if( error.message.search(404) != -1 ) {
+                  swal.fire({
+                    title: "Failed",
+                    text: "The receiver account you entered doesn't exist!",
+                    showButtonConfirmation: true,
+                    type: 'warning',
+                  });
+                }
+                else{
+                  console.log('ALERT ERROR HAPPENED');
+                  console.log(error.message);
+                  some_thing_went_wrong.fire();
+                }
+                this.show_error_to_request_modal();
+                
             });
 
           }

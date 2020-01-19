@@ -38,7 +38,11 @@
                 <deposit-money></deposit-money>
                 <withdraw-money></withdraw-money>
                 <balance-wallet></balance-wallet>
-                <api></api>
+                <api-key></api-key>
+
+                <div id="not_single_page">
+                  @yield('content')
+                </div>
                 
             </div>
         </div>

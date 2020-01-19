@@ -5,11 +5,12 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class User extends \TCG\Voyager\Models\User
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -60,6 +61,16 @@ class User extends \TCG\Voyager\Models\User
         return $this->hasOne(\App\Models\InnerWebsite\WebsiteUser::class);
     }
 
+    public function bank_user()
+    {
+        return $this->hasOne(\App\Models\InnerWebsite\Bank::class);
+    }
+
+    public function bank_manager()
+    {
+        return $this->hasOne(\App\Models\InnerWebsite\BankManager::class);
+    }
+
     public function api()
     {
         return $this->hasOne(\App\Models\InnerWebsite\Api::class);
@@ -78,6 +89,16 @@ class User extends \TCG\Voyager\Models\User
     public function transactions()
     {
         return $this->hasMany(\App\Models\InnerWebsite\Transaction::class);
+    }
+
+    public function website_payment_transactions()
+    {
+        return $this->hasMany(\App\Models\InnerWebsite\WebsitePaymentTransaction::class);
+    }
+
+    public function website_payment_transaction_temporaries()
+    {
+        return $this->hasMany(\App\Models\InnerWebsite\WebsitePaymentTransactionTemporary::class);
     }
 
     public function bill_payment_user_and_customer()

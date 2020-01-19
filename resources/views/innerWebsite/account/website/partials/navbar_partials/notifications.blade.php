@@ -39,7 +39,7 @@
 
           <div class="dropdown-divider"></div>
           
-          <router-link to="/bpa/notification_history" 
+          <router-link to="/wa/notification_history" 
           class="dropdown-item dropdown-footer" 
           onclick="closeSideBar();"
           id="navbar-notifications_view"

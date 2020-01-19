@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content  border-0">
       <button type="button" 
-      class="close text-white ml-auto mr-n3 font-weight-500" 
+      class="close text-black ml-auto mr-n0 font-weight-500" 
       data-dismiss="modal" 
       aria-label="Close"><span aria-hidden="true">&times;</span>
       </button>
@@ -32,13 +32,13 @@
         Business Account
       </a>
 
-      <a href="#" data-toggle="modal" data-target="#registrationModal" 
+      <a href="{{ url('http://account.yoippsp.com/wa-register') }}" data-toggle="modal" data-target="#registrationModal" 
         class="btn btn-block btn-info my-2 mr-2 text-white">
         <span class="text-2 mr-3"><i class="fas fa-user-plus"></i></span>
         Website Account
       </a>
 
-      <a href="#" data-toggle="modal" data-target="#registrationModal" 
+      <a href="{{ url('http://account.yoippsp.com/bpa-register') }}" data-toggle="modal" data-target="#registrationModal" 
         class="btn btn-block btn-info my-2 mr-2 text-white">
         <span class="text-2 mr-3"><i class="fas fa-user-plus"></i></span>
         Bill Payment Account
@@ -48,7 +48,9 @@
         class="btn btn-block btn-info my-2 mr-2 text-white">
         <span class="text-2 mr-3"><i class="fas fa-user-plus"></i></span>
         Service Provider Account
-      </a> 
+      </a>
+      
+       
 
 
       </div>

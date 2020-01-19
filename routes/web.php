@@ -3,6 +3,8 @@
 //YoippspCompany Admin
 Route::group(['domain' => 'admin.yoippsp.com'], __DIR__.'/yoippspCompany/Admin/routes.php');
 
+/* Route::group(['domain' => 'bank-manager.yoippsp.com'], __DIR__.'/yoippspCompany/Admin/routes.php'); */
+
 //OuterWebsite
 Route::group(['domain'=>'yoippsp.com'], __DIR__.'/outerWebsite/routes.php');
 
@@ -16,7 +18,7 @@ Route::group(['middleware' => 'guest', 'domain' => 'account.yoippsp.com'], __DIR
 
  */
 Route::get('/login', function(){
-    return redirect( 'http://account.yoippsp.com/'.'login');
+    return redirect( 'http://account.yoippsp.com/login');
 });
 
 Route::get('/{any}-register', function($type){
@@ -32,7 +34,7 @@ Route::group([ 'middleware' => 'auth', 'domain' => '192.168.43.98' ], __DIR__.'/
 //for testing error page
 Route::group(['middleware' => 'guest'], __DIR__.'/errors/routes.php');
 
-Auth::routes();
+//Auth::routes();
 
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 

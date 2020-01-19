@@ -65,6 +65,10 @@
 
                             <!--Status-->
                             <li class="text-muted">{{ statusText }}</li>
+
+                            <span class="float-right text-3 btn btn-sm btn-outline" onclick="print_invoice()">
+                              Print
+                            </span>
                           </ul>
                         </div>
                       </div>
@@ -149,6 +153,7 @@
         created() {
           ECHO.$on('DASHBOARD_TRANSACTION_MODAL_OPENED', (transaction) => {
                 this.loadData(transaction);
+                window.temp_transaction = transaction;
           });
         }
     }

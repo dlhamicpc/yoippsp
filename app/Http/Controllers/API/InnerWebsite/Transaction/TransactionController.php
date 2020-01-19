@@ -44,12 +44,29 @@ class TransactionController extends Controller
 
         switch ( $role_id ) {
 
+            case 3: {
+                $this->senderModel = auth()->user()->business_user;
+                return auth()->user()->business_user->balance;
+            }
+            case 4: {
+                $this->senderModel = auth()->user()->website_user;
+                return auth()->user()->website_user->balance;
+            }
             case 5:{
                 $this->senderModel = auth()->user()->personal_user;
                 return auth()->user()->personal_user->balance;
             }
+            case 6:{
+                $this->senderModel = auth()->user()->bill_payment_user;
+                return auth()->user()->bill_payment_user->balance;
+            }
+            case 6:{
+                $this->senderModel = auth()->user()->service_provider_user;
+                return auth()->user()->service_provider_user->balance;
+            }
 
             default:
+                abort(403);
                 break;
         }
     }
@@ -59,6 +76,37 @@ class TransactionController extends Controller
          event( new NotificationMessageEvent(
             $senderUserID, $senderName, $senderImage, $receiverUserID, $notificationType, $message
           ));
+    }
+
+    protected function find_model( $role_id )
+    {
+
+        switch ($role_id) {
+           /*  case 1:{
+                return new \App\Models\InnerWebsite\YoippspAdminUser();
+            }
+            case 2:{
+                return new \App\Models\InnerWebsite\BankUser();
+            } */
+            case 3:{
+                return new \App\Models\InnerWebsite\BusinessUser();
+            }
+            case 4:{
+                return new \App\Models\InnerWebsite\WebsiteUser();
+            }
+            case 5:{
+                return new \App\Models\InnerWebsite\PersonalUser();
+            }
+            case 6:{
+                return new \App\Models\InnerWebsite\BillPaymentUser();
+            }
+            case 7:{
+                return new \App\Models\InnerWebsite\ServiceProviderUser();
+            }
+            default:
+                abort(422, 'Invalid Request Information');
+        }
+
     }
 
 

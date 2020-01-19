@@ -46,9 +46,15 @@ let websiteRoutes = [
     },
 
     {
-        path: '/wa/api_key',
+        path: '/wa/payment_detail',
         component: require( '../components/account/website/empty/index.vue' ).default
     },
+
+    {
+        path: '/wa/api_documentation',
+        component: require( '../components/account/website/api_documentation/index.vue' ).default
+    },
+
 
     {
         path: '*',

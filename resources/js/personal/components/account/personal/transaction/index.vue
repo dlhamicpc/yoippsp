@@ -50,11 +50,12 @@
                         </div>
 
                         <!-- Statements Link========================= -->
-                        <div class="col-auto d-flex align-items-center ml-auto form-group">
+                       <!--  <div class="col-auto d-flex align-items-center ml-auto form-group">
                           <div class="dropdown"> <a class="text-muted btn-link" href="#" role="button" id="statements" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-file-download text-3 mr-1"></i>Statements</a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="statements"> <a class="dropdown-item" href="#">CSV</a> <a class="dropdown-item" href="#">PDF</a> </div>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="statements">
+                               <a class="dropdown-item" href="javascript:print_invoice('transaction-list')">PDF</a> </div>
                           </div>
-                        </div>
+                        </div> -->
                         
                         <!-- All Filters collapse================================ -->
                         <div class="col-12 collapse mb-3" id="allFilters">
@@ -87,6 +88,16 @@
                           <div class="custom-control custom-radio custom-control-inline">
                             <input type="radio" id="request" name="allFilters" class="custom-control-input" v-model="filterBy" value="request" @change="filterTransactionBy()">
                             <label class="custom-control-label" for="request">Request</label>
+                          </div>
+
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="online_payment" name="allFilters" class="custom-control-input" v-model="filterBy" value="online_payment" @change="filterTransactionBy()">
+                            <label class="custom-control-label" for="online_payment">Online Payment</label>
+                          </div>
+
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="bill_payment" name="allFilters" class="custom-control-input" v-model="filterBy" value="bill_payment" @change="filterTransactionBy()">
+                            <label class="custom-control-label" for="bill_payment">Bill Payment</label>
                           </div>
 
                         </div>
@@ -206,10 +217,11 @@
                  .then(({data}) => (
                     this.transactionsPaginate = data,
                     this.transactionsBeforeFilter = data.data,
-                    temp = this.filterTransactionBy()
+                    temp = this.filterTransactionBy(),
+                    ECHO.$emit('END_LOADING')
                   ));
             
-            ECHO.$emit('END_LOADING');
+            
                                 
           }//END of loadTransaction()
           ,
@@ -223,9 +235,10 @@
                     this.transactionsPaginate = response.data;
                     this.transactionsBeforeFilter = response.data.data;
                     temp = this.filterTransactionBy();
+                    ECHO.$emit('END_LOADING')
                   });
             
-            ECHO.$emit('END_LOADING');
+            
           }//END of pagination()
           ,
 
@@ -317,6 +330,36 @@
                 break;
               }
 
+              case "online_payment": {
+                let temp = new Object();
+                let temp2 = this.transactionsBeforeFilter;
+
+                for( let index in temp2 ){
+                  let temp3 = temp2[index];
+                  if ( temp3.transaction_type == 4 ){
+                    temp[index] = temp3;
+                  }
+                }
+
+                this.transactionsThis = temp;
+                break;
+              }
+
+              case "bill_payment": {
+                let temp = new Object();
+                let temp2 = this.transactionsBeforeFilter;
+
+                for( let index in temp2 ){
+                  let temp3 = temp2[index];
+                  if ( temp3.transaction_type == 5 ){
+                    temp[index] = temp3;
+                  }
+                }
+
+                this.transactionsThis = temp;
+                break;
+              }
+
               default: 
                 this.transactionsThis = this.transactionsBeforeFilter;
 
@@ -368,6 +411,8 @@
               case "withdraw":  return "Withdraw Transactions";
               case "deposit":   return "Deposit Transactions";
               case 'request':   return "Request Transactions";
+              case 'online_payment':   return "Online Payment Transactions";
+              case 'bill_payment':   return "Bill Payment Transactions";
               default:          return "All Transactions";
 
             }

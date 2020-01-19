@@ -205,8 +205,13 @@ export default function websiteAccountComponentRegistration() {
 
 
         Vue.component(
-            'api',
-            require('../components/account/website/api/index.vue').default
+            'api-key',
+            require('../components/account/website/api_key/index.vue').default
+        );
+
+        Vue.component(
+            'api-documentation',
+            require('../components/account/website/api_documentation/index.vue').default
         );
 
 

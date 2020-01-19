@@ -16,45 +16,7 @@ class WebsitePaymentTransactionTemporaryController extends Controller
     private $website_user;
     private $errors = array();
     private $response = array('status' => 'failed');
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index( $id )
-    {
-        $data = $this->check_if_the_data_belong_to_the_payer( $id );
-        return view('innerWebsite.gateway.pay.index', $data);
-    }
-
-    private function check_if_the_data_belong_to_the_payer( $id )
-    {
-        $wptt = WebsitePaymentTransactionTemporary::find($id);
-        if($wptt == null) {
-            abort(404);
-        }
-        else {
-            $website_user = WebsiteUser::where('webhook_url', request()->server('HTTP_REFERER'))->get()->first();
-
-            if( $website_user == null ) {
-                abort(404);
-            }
-            else{
-                if( $wptt->website_user_id != $website_user->id ) {
-                    abort(404);
-                }
-                else{
-                    return [
-                        'website_name' => $website_user->website_name,
-                        'website_url' => $website_user->website_url,
-                        'amount' => $wptt->amount
-                    ];
-                }
-            }
-            
-        }
-    }
-
+    
 
     /**
      * Store a newly created resource in storage.

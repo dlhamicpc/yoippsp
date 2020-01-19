@@ -239,8 +239,7 @@
                 else{
                   
                   $('#deposit-money').modal('hide');
-                  this.form_deposit_money.deposit_amount = "";
-                  this.form_deposit_money.payment_method_deposit = "";
+                  
 
                   //UPDATE BALANCE AND TRANSACTION
                   ECHO.$emit('UPDATE_DATA', data);
@@ -252,6 +251,9 @@
                     text:"You have successfully deposited " + this.form_deposit_money.deposit_amount + " birr to your Yoippsp wallet.\nYour current Yoippsp wallet balance is " + data.balance + " birr." ,
                     type:'success'
                   });
+
+                  this.form_deposit_money.deposit_amount = "";
+                  this.form_deposit_money.payment_method_deposit = "";
 
                 ECHO.$emit('END_LOADING'); 
                 }

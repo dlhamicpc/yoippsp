@@ -210,6 +210,8 @@ class BillPaymentUserController extends Controller
         $data = $this->validate_update_languages_time_zone( $request );
 
         if( $data['account_status'] == 'delete' ){
+            auth()->user()->delete();
+            auth()->guard()->logout();
             abort(403);
         }
 

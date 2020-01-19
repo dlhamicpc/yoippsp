@@ -1,4 +1,4 @@
-@extends('innerWebsite.account.website.layouts.master')
+@extends('innerWebsite.account.bank.layouts.master')
 
 @section('content')
 
@@ -7,7 +7,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Customers List</h3>
+                <h3 class="card-title">Customers List Via Bank Account Link</h3>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -26,9 +26,12 @@
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Name</th>
-                      <th>Mobile Number</th>
-                      <th>Payment Identification</th>
+                      <th>Full Name</th>
+                      <th>Account Number</th>
+                      <th>Book Number</th>
+                      <th>Approved</th>
+                      <th>Linked At</th>
+                      <th>Last Approved At</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -36,9 +39,13 @@
                   @foreach( $customers as $customer )
                     <tr>
                       <td>{{ ++$counter }}</td>
-                      <td>{{ ucwords($customer->user->personal_user->full_name) }}</td>
-                      <td>{{ $customer->user->mobile_number }}</td>
-                      <td>{{ $customer->user_payment_identification }}</td>
+                      <td>{{ ucwords($customer->full_name) }}</td>
+                      <td>{{ $customer->account_number }}</td>
+                      <td>{{ $customer->book_number }}</td>
+                      <td>{{ $customer->approved }}</td>
+                      <td>{{ $customer->created_at }}</td>
+                      <td>{{ $customer->updated_at }}</td>
+                      
                     </tr>
 
                     @endforeach

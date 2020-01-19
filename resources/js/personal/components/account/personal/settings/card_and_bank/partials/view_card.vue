@@ -1,8 +1,8 @@
 <template>
 
-<!-- Credit or Debit Cards============================================= -->
+<!--  Cards============================================= -->
           <div class="bg-light shadow-sm rounded p-4 mb-4">
-            <h3 class="text-5 font-weight-400 mb-4">Credit or Debit Cards</h3>
+            <h3 class="text-5 font-weight-400 mb-4">Cards</h3>
 
             <div class="row">
 

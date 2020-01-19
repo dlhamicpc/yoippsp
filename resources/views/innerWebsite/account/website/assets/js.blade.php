@@ -16,6 +16,14 @@
 </script>
 
 <script 
+    src="{{ asset('/js/closeSideBar.js') }}" type="text/javascript">
+</script>
+
+<script 
+    src="{{ asset('/js/print.js') }}" type="text/javascript">
+</script>
+
+<script 
     src="{{ asset('/innerWebsite/js/website.js') }}">
 </script>
 

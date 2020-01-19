@@ -52,9 +52,7 @@
 </div>
 <!-- ./wrapper -->
 @auth
-  <script type="text/javascript">
-
-    
+  <script type="text/javascript">    
     window.user = @json(auth()->user());
 
     window.userDetails = @json($personalUser);
