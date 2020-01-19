@@ -11,7 +11,13 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/personal/personal.js', 'public/innerWebsite/js')
-    .js('resources/js/bill_payment_provider/bill_payment_provider.js', 'public/innerWebsite/js')
-    .js('resources/js/website/website.js', 'public/innerWebsite/js')
+let appVersion = 1;
+
+mix
+.js('resources/js/personal/personal.js', 'public/innerWebsite/js/')
+    
+.js('resources/js/bill_payment_provider/bill_payment_provider.js', 'public/innerWebsite/js/')
+    
+.js('resources/js/website/website.js', 'public/innerWebsite/js/')
+.js('resources/js/bank/bank.js', 'public/innerWebsite/js/')
     //.sass('resources/sass/app.scss', 'public/innerWbsite/css');
