@@ -86,7 +86,7 @@ class BillPaymentRegisterController extends Controller
 
             'type_of_bill_payment'      => ['bail', 'required', 'integer', 'exists:bill_payment_types,id'],
 
-            'company_name'              => ['bail', 'required', 'string', 'min:2', 'max:191'],
+            'company_name'              => ['bail', 'required', 'string', 'min:2', 'max:191'. 'unique:bill_payment_users,bill_payment_name'],
 
             'company_headquarter'       => ['bail', 'required', 'string', 'min:2', 'max:191'],
             

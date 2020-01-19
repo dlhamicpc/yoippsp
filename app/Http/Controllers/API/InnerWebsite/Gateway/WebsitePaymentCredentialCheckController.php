@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\API\InnerWebsite\Gateway;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\API\InnerWebsite\Transaction\WebsitePaymentTransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-//use Illuminate\Foundation\Auth\ThrottlesLogins;
-
-class LoginController extends Controller
+class WebsitePaymentCredentialCheckController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
-    | Login Controller
+    | WebsitePaymentCredentialCheckController Controller
     |--------------------------------------------------------------------------
     |
     | This controller handles authenticating users for the application and
@@ -24,7 +23,7 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
+     * Where to redirect users after payment.
      *
      * @var string
      */
@@ -39,7 +38,6 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
         
         //checking for honey pot /spam bot
         if( request()->new_email ){
@@ -61,24 +59,25 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        $login_type = filter_var($request->input('email_mobile'), FILTER_VALIDATE_EMAIL ) 
+        $payment_type = filter_var($request->input('email_mobile'), FILTER_VALIDATE_EMAIL ) 
             ? 'email' 
             : 'mobile_number';
 
         $request->merge([
-            $login_type => $request->input('email_mobile')
+            $payment_type => $request->input('email_mobile')
         ]);
+
 
         if (method_exists($this, 'hasTooManyLoginAttempts') &&
             $this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
-                //dd('to many');
             return $this->sendLockoutResponse($request);
         }
 
-        if ( \Auth::attempt( $request->only($login_type, 'password'), $request->filled('remember') ) ) {
-            return redirect()->intended($this->redirectPath());
+        if ( \Auth::attempt( $request->only($payment_type, 'password') ) ) {
+            return $this->perfrom_transaction();
         }
+
         $this->incrementLoginAttempts($request);
 
         return back()
@@ -90,29 +89,38 @@ class LoginController extends Controller
 
     protected function redirectTo()
     {
-        $role_id = auth()->user()->role_id;
-        
-        switch($role_id){
-            case 1:
-                return 'http://admin.yoippsp.com';
-            case 2:
-                return 'http://account.yoippsp.com/bank/dashboard';
-            case 3:
-                return 'http://account.yoippsp.com/ba/dashboard';
-            case 4:
-                return 'http://account.yoippsp.com/wa/dashboard';
-            case 5:
-                return 'http://account.yoippsp.com/pa/dashboard';
-            case 6:
-                return 'http://account.yoippsp.com/bpa/dashboard';
-            case 7:
-                return 'http://account.yoippsp.com/spa/dashboard';
-            case 8:
-                return 'http://admin.yoippsp.com';
-            default:
-                return 'http://yoippsp.com';
-        }
 
+    }
+
+    private function perfrom_transaction()
+    {
+        
+        $website_transaction = new WebsitePaymentTransactionController();
+        $this->redirectTo = $website_transaction->set_data();
+        $balance_sufficient = $website_transaction->check_balance();
+
+        if( $balance_sufficient == false ) {
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'email_mobile' => 'Insufficient Balance. Login to your yoippsp account and deposit to your yoippsp wallet.',
+            ]);
+        }
+        else {
+            $website_transaction_status = $website_transaction->perform_transaction();
+
+            if( $website_transaction_status == true ) {
+                auth()->guard()->logout();
+                return redirect( $this->redirectTo );
+            }
+            else {
+                return back()
+                    ->withInput()
+                    ->withErrors([
+                        'email_mobile' => 'Something went wrong!! Please try again.',
+                ]);
+            }
+        }
     }
 
 

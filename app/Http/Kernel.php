@@ -61,8 +61,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        /* 'is_yoippsp_admin_user' => \App\Http\Middleware\InnerWebsite\IsPersonal::class,
-        'is_bank_user' => \App\Http\Middleware\InnerWebsite\IsPersonal::class,*/
+        /* 'is_yoippsp_admin_user' => \App\Http\Middleware\InnerWebsite\IsPersonal::class,*/
+        'is_bank_user' => \App\Http\Middleware\InnerWebsite\IsBank::class,
         'is_bill_payment_provider_user' => \App\Http\Middleware\InnerWebsite\IsBillPaymentProvider::class,
         'is_personal_user' => \App\Http\Middleware\InnerWebsite\IsPersonal::class,
         'is_website_user' => \App\Http\Middleware\InnerWebsite\IsWebsite::class,
