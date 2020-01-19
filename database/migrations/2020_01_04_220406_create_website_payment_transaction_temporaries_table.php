@@ -18,14 +18,15 @@ class CreateWebsitePaymentTransactionTemporariesTable extends Migration
             $table->bigInteger('website_user_id')->unsigned()->index();
             $table->bigInteger('user_id')->unsigned()->index()->nullable(); // payer_id
             $table->string('website_user_public_key');
+            $table->string('payer_identification');
             $table->string('payer_ip');
             $table->longText('metadata')->nullable();
             $table->double('amount',2);
-            $table->string('status')->default('Pending');
+            $table->enum('status', ['Pending', 'Paid', 'Failed'])->default('Pending');
             $table->timestamps();
 
             $table->foreign('website_user_id')->references('id')->on('website_users')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('website_users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
