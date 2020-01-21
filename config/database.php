@@ -70,7 +70,19 @@ return [
         'external_database_bank_cbe' => [
             'driver'    => 'mysql',
             'host'      => 'localhost',
-            'database'  => 'dlhambank_db',
+            'database'  => 'bank_cbe',
+            'username'  => 'root',
+            'password'  => 'secret',
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+            'strict'    => false,
+        ],
+
+        'external_database_bank_awash' => [
+            'driver'    => 'mysql',
+            'host'      => 'localhost',
+            'database'  => 'bank_awash',
             'username'  => 'root',
             'password'  => 'secret',
             'charset'   => 'utf8',
@@ -90,10 +102,10 @@ return [
         /**
          * Links for Electricity Providers 
          */
-        'external_database_bill_payment_provider_addis_elec' => [
+        'external_database_bill_payment_provider_addis_electricity' => [
             'driver'    => 'mysql',
             'host'      => 'localhost',
-            'database'  => 'test_electricity',
+            'database'  => 'billpayment_electricity',
             'username'  => 'root',
             'password'  => 'secret',
             'charset'   => 'utf8',
@@ -107,10 +119,10 @@ return [
         /**
          * Links for Water Providers 
          */
-        'external_database_bill_payment_provider_oromia_water' => [
+        'external_database_bill_payment_provider_addis_water' => [
             'driver'    => 'mysql',
             'host'      => 'localhost',
-            'database'  => 'test_electricity',
+            'database'  => 'billpayment_water',
             'username'  => 'root',
             'password'  => 'secret',
             'charset'   => 'utf8',
@@ -127,7 +139,7 @@ return [
         'external_database_bill_payment_provider_addis_dstv' => [
             'driver'    => 'mysql',
             'host'      => 'localhost',
-            'database'  => 'dlhambank_db',
+            'database'  => 'billpayment_dstv',
             'username'  => 'root',
             'password'  => 'secret',
             'charset'   => 'utf8',

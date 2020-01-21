@@ -155,7 +155,7 @@ class BillPaymentPostController extends Controller
         //dd($this->get_bill_payment_provider_database_connection_name( auth()->user()->bill_payment_user->bill_payment_name ));
         $exist = DB::connection( 
             $this->get_bill_payment_provider_database_connection_name( auth()->user()->bill_payment_user->bill_payment_name )
-            )->table('bill_payment_post')->where([
+            )->table('bill_payment_posts')->where([
             'month' => $data['payment_of_month'],
             'year' => $data['payment_of_year']
         ])->get();

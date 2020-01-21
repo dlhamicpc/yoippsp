@@ -218,13 +218,13 @@ class DepositTransactionController extends TransactionController
      */
     private function get_depositer_account_from_bank( $bankDatabaseConnection, $data )
     {
-        return $bankDatabaseConnection->table('customer')
+        return $bankDatabaseConnection->table('customers')
                             ->where( $this->determine_bank_or_card_link( $data['card_or_bank'] ) , $data['payment_method_deposit'] );
     }
 
     private function get_yoippsp_account_from_bank( $bankDatabaseConnection, $yoippspBankDetail )
     {
-        return $bankDatabaseConnection->table('customer')
+        return $bankDatabaseConnection->table('customers')
                         ->where('account_number', $yoippspBankDetail->bank_account_number );  
     }
 

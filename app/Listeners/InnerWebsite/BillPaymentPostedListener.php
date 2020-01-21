@@ -66,7 +66,7 @@ class BillPaymentPostedListener
     //external database
     private function get_bill_post_from_bill_payment_database()
     {
-        $this->allCustomerBillInformation = $this->databaseConnection->table('bill_payment_post')->where([
+        $this->allCustomerBillInformation = $this->databaseConnection->table('bill_payment_posts')->where([
             'month' => $this->billPaymentPosted->payment_of_month,
             'year' => $this->billPaymentPosted->payment_of_year
         ])->get();
@@ -137,23 +137,28 @@ class BillPaymentPostedListener
     {
         $total_expected_amount = 0.0;
         foreach( $this->allCustomerBillInformation as $singleCustomerInformation ){
-            $userBillPaymentInformation = new UserBillPaymentInformation();
 
-            $temp = $this->billPaymentCustomerWithUserID[$singleCustomerInformation->payment_identification ];
+            try {
+                $userBillPaymentInformation = new UserBillPaymentInformation();
 
-            $userBillPaymentInformation->user_id = $temp[1];
-            $userBillPaymentInformation->link_id = $temp[0];
-            $userBillPaymentInformation->bill_payment_user_id = $this->billPaymentUser->id;
-            $userBillPaymentInformation->amount = $singleCustomerInformation->amount;
-            $userBillPaymentInformation->payment_of_year = $singleCustomerInformation->year;
-            $userBillPaymentInformation->payment_of_month = $singleCustomerInformation->month;
-            $userBillPaymentInformation->payment_status = 'Pending';
-            $success = $userBillPaymentInformation->save();
-            
-            $total_expected_amount += $singleCustomerInformation->amount;
+                $temp = $this->billPaymentCustomerWithUserID[$singleCustomerInformation->payment_identification ];
 
-            if( $success ){
-                $this->send_notification( $temp[1], $singleCustomerInformation->amount );
+                $userBillPaymentInformation->user_id = $temp[1];
+                $userBillPaymentInformation->link_id = $temp[0];
+                $userBillPaymentInformation->bill_payment_user_id = $this->billPaymentUser->id;
+                $userBillPaymentInformation->amount = $singleCustomerInformation->amount;
+                $userBillPaymentInformation->payment_of_year = $singleCustomerInformation->year;
+                $userBillPaymentInformation->payment_of_month = $singleCustomerInformation->month;
+                $userBillPaymentInformation->payment_status = 'Pending';
+                $success = $userBillPaymentInformation->save();
+                
+                $total_expected_amount += $singleCustomerInformation->amount;
+
+                if( $success ){
+                    $this->send_notification( $temp[1], $singleCustomerInformation->amount );
+                }
+            } catch (\Throwable $th) {
+                //throw $th;
             }
             
         }

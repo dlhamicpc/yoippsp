@@ -77,6 +77,7 @@ class LoginController extends Controller
         }
 
         if ( \Auth::attempt( $request->only($login_type, 'password'), $request->filled('remember') ) ) {
+            $this->approval_check();
             return redirect()->intended($this->redirectPath());
         }
         $this->incrementLoginAttempts($request);
@@ -113,6 +114,20 @@ class LoginController extends Controller
                 return 'http://yoippsp.com';
         }
 
+    }
+
+
+    /**
+     * The user has been appoved
+     */
+    private function approval_check()
+    {
+        $approval_need_roles = [2,6,7];
+        $user = auth()->user();
+        if( in_array( $user->role_id, $approval_need_roles) && $user->approved != 'Approved' ) {
+            auth()->guard()->logout();
+            abort(503);
+        }
     }
 
 
